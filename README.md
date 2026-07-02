@@ -1,6 +1,6 @@
 # Efficient LiDAR Panoptic Segmentation via Knowledge Distillation and Training-Free Clustering
 
-**Bachelor Thesis — 2025**
+**Bachelor Thesis — 2026**
 
 ## Abstract
 
