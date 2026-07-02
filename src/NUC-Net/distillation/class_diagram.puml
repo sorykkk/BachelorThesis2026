@@ -1,0 +1,174 @@
+@startuml
+!theme materia-outline
+
+skinparam classAttributeIconSize 0
+
+title Diagrama detaliată a claselor NUC-Net distilat
+
+package "models.feature_extractor" {
+  class Asymm_3d_spconv {
+    <<external>>
+  }
+  
+  class Asymm3DSpconvDistill {
+    .. Methods ..
+    + forward(voxel_features: Tensor,\n           coors: Tensor,\n           batch_size: int) : dict[str, Tensor]
+  }
+  
+  class CylinderAsymDistill {
+    .. Attributes ..
+    + name : str
+    + cylinder_3d_generator : nn.Module
+    + cylinder_3d_spconv_seg : Asymm3DSpconvDistill
+    + sparse_shape : list[int]
+    .. Constructor ..
+    + __init__(cylin_model: nn.Module,\n           segmentator_spconv: Asymm3DSpconvDistill,\n           sparse_shape: list[int])
+    .. Methods ..
+    + forward(train_pt_fea_ten: list[Tensor],\n           train_vox_ten: list[Tensor],\n           batch_size: int,\n           train_vox_ten_ms: list[Tensor]=None) : dict[str, Tensor]
+  }
+}
+
+package "models.adaptation" {
+  class FeatureAdaptation {
+    .. Attributes ..
+    + adapt : nn.Sequential
+    .. Constructor ..
+    + __init__(student_feat_dim: int,\n           teacher_feat_dim: int,\n           use_bn: bool=True)
+    .. Methods ..
+    + _init_weights() : None
+    + forward(student_features: Tensor) : Tensor
+  }
+  
+  class MultiScaleAdaptation {
+    .. Attributes ..
+    + levels : list[str]
+    + adaptors : nn.ModuleDict
+    .. Constructor ..
+    + __init__(teacher_init_size: int,\n           student_init_size:\n           int, levels: list[str]=None)
+    .. Methods ..
+    + forward(student_features_dict: dict[str, Tensor]) : dict[str, Tensor]
+  }
+}
+
+package "losses.combined_loss" {
+  class CombinedDistillLoss {
+    .. Attributes ..
+    + gt_loss : GroundTruthLoss
+    + feat_loss : MultiScaleFeatureDistillLoss
+    + logit_loss : SoftLogitDistillLoss
+    + boundary_loss : BoundaryConsistencyLoss
+    + lambda_scheduler : LambdaScheduler
+    .. Constructor ..
+    + __init__(distill_config: dict[str, any],\n           num_class: int=20,\n           ignore_label: int=0)
+    .. Methods ..
+    + forward(student_outputs: dict[str, Tensor],\n           teacher_outputs: dict[str, Tensor],\n           voxel_labels: Tensor,\n           adaptation_layer: MultiScaleAdaptation,\n           epoch: int) : tuple[Tensor, dict[str, float]]
+  }
+}
+
+package "losses" {
+  class GroundTruthLoss {
+    .. Attributes ..
+    + ce_loss : nn.CrossEntropyLoss
+    + ignore_label : int
+    .. Constructor ..
+    + __init__(num_class: int=20, ignore_label: int=0)
+    .. Methods ..
+    + forward(student_dense_logits: Tensor, voxel_labels: Tensor) : Tensor
+  }
+  
+  class MultiScaleFeatureDistillLoss {
+    .. Attributes ..
+    + level_weights : list[float]
+    + cosine_weight : float
+    + mse : nn.MSELoss
+    .. Constructor ..
+    + __init__(level_weights: list[float]=None, cosine_weight: float=0.5)
+    .. Methods ..
+    + forward(student_intermediate: dict[str, Tensor],\n           teacher_intermediate: dict[str, Tensor],\n           adaptation: nn.Module) : tuple[Tensor, dict[str, float]]
+  }
+  
+  class SoftLogitDistillLoss {
+    .. Attributes ..
+    + temperature : float
+    + use_logit_std : bool
+    + use_entropy : bool
+    + use_dkd : bool
+    + dkd_alpha : float
+    + dkd_beta : float
+    .. Constructor ..
+    + __init__(temperature: float=3.0,\n           use_logit_standardization: bool=True,\n           use_entropy_weighting: bool=True,\n           use_decoupled_kd: bool=True,\n           dkd_alpha: float=1.0,\n           dkd_beta: float=8.0)
+    .. Methods ..
+    + _standardize_logits(logits: Tensor) : Tensor
+    + _compute_entropy_weights(teacher_probs: Tensor) : Tensor
+    + _standard_kl(student_logits: Tensor, teacher_logits: Tensor) : Tensor
+    + _decoupled_kd(student_logits: Tensor,\n           teacher_logits: Tensor,\n           gt_labels: Tensor=None) : Tensor
+    + forward(student_sparse_logits: Tensor,\n           teacher_sparse_logits: Tensor,\n           gt_labels: Tensor=None) : Tensor
+  }
+  
+  class BoundaryConsistencyLoss {
+    .. Attributes ..
+    + temperature : float
+    + offsets : Tensor
+    .. Constructor ..
+    + __init__(temperature: float=3.0)
+    .. Methods ..
+    + _build_neighbor_pairs(sparse_indices: Tensor) : tuple[Tensor, Tensor]
+    + forward(student_sparse_logits: Tensor,\n           teacher_sparse_logits: Tensor,\n           sparse_indices: Tensor) : Tensor
+  }
+}
+
+package "training.lambda_scheduler" {
+  class LambdaScheduler {
+    .. Attributes ..
+    + lambda_feat_init : float
+    + lambda_kl_init : float
+    + lambda_boundary_init : float
+    + lambda_feat_final : float
+    + lambda_kl_final : float
+    + lambda_boundary_final : float
+    + warmup_epochs : int
+    + total_epochs : int
+    + transition_epochs : int
+    .. Constructor ..
+    + __init__(lambda_feat_init: float=10.0,\n           lambda_kl_init: float=1.0,\n           lambda_boundary_init: float=0.5,\n           lambda_feat_final: float=1.0,\n           lambda_kl_final: float=5.0,\n           lambda_boundary_final: float=2.0,\n           warmup_epochs: int=15,\n           total_epochs: int=40)
+    .. Methods ..
+    + _interpolate(init_val: float,\n           final_val: float,\n           progress: float) : float
+    + get_lambdas(epoch: int) : dict[str, float]
+    + __repr__() : str
+  }
+}
+
+package "evaluation.eval_student" {
+  class InferenceProfiler {
+    .. Attributes ..
+    + device : torch.device
+    + times : list[float]
+    + _start_event : torch.cuda.Event
+    + _end_event : torch.cuda.Event
+    + _start_time : float
+    .. Constructor ..
+    + __init__(device: torch.device)
+    .. Methods ..
+    + start_frame() : None
+    + end_frame() : None
+    + get_stats() : dict[str, float]
+  }
+}
+
+' Inheritance
+Asymm_3d_spconv <|-- Asymm3DSpconvDistill
+
+' Composition
+CylinderAsymDistill *-- Asymm3DSpconvDistill : composes >
+MultiScaleAdaptation *-- FeatureAdaptation : composes >
+
+CombinedDistillLoss *-- GroundTruthLoss : composes >
+CombinedDistillLoss *-- MultiScaleFeatureDistillLoss : composes >
+CombinedDistillLoss *-- SoftLogitDistillLoss : composes >
+CombinedDistillLoss *-- BoundaryConsistencyLoss : composes >
+CombinedDistillLoss *-- LambdaScheduler : composes >
+
+' Dependencies
+CombinedDistillLoss ..> MultiScaleAdaptation
+CombinedDistillLoss ..> CylinderAsymDistill : processes outputs from >
+@enduml

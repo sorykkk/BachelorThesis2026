@@ -1,0 +1,17 @@
+# Cylinder3D Multi-Scan - NUC-Net, SemanticKITTI
+# FLOPs profiling config
+
+arch: cylinder3d
+
+model:
+  init_size: 16
+  num_input_features: 16
+  num_scales: 1
+  num_class: 26
+  fea_dim: 9
+  out_fea_dim: 256
+  output_shape: [480, 360, 32]
+
+profiling:
+  num_points: 300000     # multi-scan accumulates ~5 scans
+  num_voxels: 80000      # more voxels due to larger grid

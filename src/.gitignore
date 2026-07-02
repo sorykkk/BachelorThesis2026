@@ -1,0 +1,13 @@
+.env.local
+data/
+*.egg*
+*.tar.gz
+build/
+**/build/**
+**/predictions/**
+
+!code-demo/data/
+!demo/data/
+
+**/__pycache__/**
+sota-2025/

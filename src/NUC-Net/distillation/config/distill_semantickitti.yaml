@@ -1,0 +1,157 @@
+# ---------------------------------------------------------------
+# NUC-Net Knowledge Distillation Config (SemanticKITTI, single-scan)
+# ---------------------------------------------------------------
+# Teacher: full-size NUC-Net (init_size=32, num_input_features=32)
+# Student: half-width  NUC-Net (init_size=16, num_input_features=16)
+# Same NUC partition, same NUMA multi-scale aggregation.
+# ---------------------------------------------------------------
+
+format_version: 1
+
+# ====================
+#  Teacher Model
+# ====================
+# Full-size NUC-Net (Cylinder3D + NUC + NUMA).
+# Weights are frozen during distillation.
+teacher_params:
+  model_architecture: "cylinder_asym"
+  output_shape:
+    - 120
+    - 360
+    - 32
+  fea_dim: 9              # Point feature dim (rho, phi, z, rel_coords, cartesian, intensity)
+  out_fea_dim: 256        # MLP output dim (before per-scale compression)
+  num_class: 20           # SemanticKITTI classes (including ignore=0)
+  num_input_features: 32  # Per-scale compressed feature dim
+  use_norm: True
+  init_size: 32           # Base channel count for 3D sparse backbone
+  num_scales: 2           # NUMA: 2-scale aggregation
+  checkpoint_path: "Cylinder3d_with_NUC/model_save_dir/model_full_ss.pt"  # Relative to NUC-Net/
+
+# ====================
+#  Student Model
+# ====================
+# Same architecture as teacher, but all 3D sparse convolution channels
+# are reduced by 50% (width reduction, NOT depth reduction).
+# Layers are kept identical; only the channel counts shrink.
+student_params:
+  model_architecture: "cylinder_asym"
+  output_shape:
+    - 120
+    - 360
+    - 32
+  fea_dim: 9
+  out_fea_dim: 256        # MLP stays the same (relatively cheap)
+  num_class: 20
+  num_input_features: 8  # Half of teacher's 32 -> backbone input = 16*2 = 32
+  use_norm: True
+  init_size: 8            # Half of teacher's 32 -> encoder: 16->32->64->128->256
+  num_scales: 2           # Same NUMA multi-scale
+
+# ====================
+#  Dataset
+# ====================
+dataset_params:
+  dataset_type: "cylinder_dataset"
+  pc_dataset_type: "SemKITTI_sk"
+  ignore_label: 0
+  return_test: False
+  fixed_volume_space: True
+  label_mapping: "Cylinder3d_with_NUC/config/label_mapping/semantic-kitti.yaml"  # Relative to NUC-Net/
+  max_volume_space:
+    - 50
+    - 3.1415926
+    - 2
+  min_volume_space:
+    - 1
+    - -3.1415926
+    - -4
+
+# ====================
+#  Data Loaders
+# ====================
+train_data_loader:
+  data_path: "../data/semantickitti/dataset/sequences/"  # Relative to NUC-Net/
+  imageset: "train"
+  return_ref: True
+  batch_size: 4 #2           # Physical batch; effective = batch_size * accumulation_steps
+  shuffle: True
+  num_workers: 4
+
+val_data_loader:
+  data_path: "../data/semantickitti/dataset/sequences/"  # Relative to NUC-Net/
+  imageset: "val"
+  return_ref: True
+  batch_size: 1
+  shuffle: False
+  num_workers: 4
+
+# ====================
+#  Distillation Losses
+# ====================
+# L_total = L_GT + lambda1 * L_feat + lambda2 * L_KL + lambda3 * L_boundary
+#
+# Training strategy:
+#   Phase 1 (epochs 0..warmup_epochs): large lambda_feat, small lambda_kl & lambda_boundary
+#     -> student learns teacher's internal feature representations
+#   Phase 2 (epochs warmup_epochs..total_epochs): decrease lambda_feat, increase lambda_kl & lambda_boundary
+#     -> student aligns with teacher's logits and decision boundaries
+distill_params:
+  # Initial loss weights
+  lambda_feat: 10.0       # L_feat weight (feature MSE distillation)
+  lambda_kl: 1.0          # L_KL weight (soft-label KL divergence)
+  lambda_boundary: 0.5    # L_boundary weight (local consistency)
+
+  # Target loss weights (after warmup, linearly interpolated)
+  lambda_feat_final: 1.0
+  lambda_kl_final: 5.0
+  lambda_boundary_final: 2.0
+
+  # Temperature for KL divergence softening (tau in the paper)
+  temperature: 3.0
+
+  # Scheduling
+  warmup_epochs: 15       # Number of epochs in Phase 1
+  total_epochs: 45        # Must match train_params.max_num_epochs
+
+  # --- Multi-scale feature distillation (PointDistiller, BEVDistill) ---
+  # Distill intermediate features at 4 backbone stages. Provides gradient signal at every backbone depth.
+  multi_scale_weights:      # Per-level importance: [bottleneck, mid_decoder, late_decoder, pre_logit]
+    - 0.5                   # bottleneck (down4c):  low-res encoder output, global context
+    - 1.0                   # mid_decoder (up3e):   mid-level semantic groupings
+    - 2.0                   # late_decoder (up1e):  high-res geometric details
+    - 4.0                   # pre_logit (concat):   richest features, highest weight
+
+  # --- Cosine similarity feature loss (PKD, ECCV 2022) ---
+  # Adds scale-invariant feature alignment on top of MSE.
+  cosine_weight: 0.5       # beta: relative weight of (1 - cos_sim) vs MSE in L_feat
+
+  # --- Decoupled Knowledge Distillation (DKD, CVPR 2022) ---
+  # Splits KL into target-class (TCKD) and non-target-class (NCKD) components.
+  # NCKD captures inter-class similarity structure and is upweighted.
+  use_decoupled_kd: True
+  dkd_alpha: 1.0           # TCKD weight (target class confidence)
+  dkd_beta: 8.0            # NCKD weight (inter-class structure - most informative)
+
+  # --- Logit Standardization (LogitKD, AAAI 2024) ---
+  # Normalizes logits to zero-mean unit-variance before KL, removing
+  # batch-norm-induced bias that distorts the soft distribution.
+  use_logit_standardization: True
+
+  # --- Entropy-based Importance Weighting (PointDistiller, CVPR 2023) ---
+  # Weights each voxel by the teacher's prediction entropy.
+  # High-entropy voxels (boundaries, rare classes) get more distillation signal.
+  use_entropy_weighting: True
+
+# ====================
+#  Training
+# ====================
+train_params:
+  learning_rate: 0.001
+  max_num_epochs: 45
+  accumulation_steps: 2 #4   # Gradient accumulation -> effective batch_size = 2*4 = 8
+  model_save_path: "distillation/checkpoints/student_ss_best.pt"   # Relative to NUC-Net/
+  checkpoint_path: "distillation/checkpoints/student_ss_last.pt"   # Relative to NUC-Net/
+  checkpoint_every_n_steps: 3189
+  eval_every_n_steps: 3189
+  instance_db_path: "Cylinder3d_with_NUC/instance_db/semantickitti_instance_db.pkl"  # Relative to NUC-Net/

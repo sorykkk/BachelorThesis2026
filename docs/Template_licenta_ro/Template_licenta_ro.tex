@@ -1,0 +1,509 @@
+%% LyX 2.3.6.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,romanian,oneside]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=2cm,lmargin=2cm,rmargin=2cm,headheight=2cm}
+\pagestyle{empty}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{babel}
+\usepackage{pifont}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[numbers]{natbib}
+\setstretch{1.15}
+\usepackage[unicode=true,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% custom text accent \LyxTextAccent[<rise value (length)>]{<accent>}{<base>}
+\newcommand*{\LyxTextAccent}[3][0ex]{%
+  \hmode@bgroup\ooalign{\null#3\crcr\hidewidth
+  \raise#1\hbox{#2}\hidewidth}\egroup}
+%% select a font size smaller than the current font size:
+\newcommand{\LyxAccentSize}[1][\sf@size]{%
+  \check@mathfonts\fontsize#1\z@\math@fontsfalse\selectfont
+}
+\ProvideTextCommandDefault{\textcommabelow}[1]{%%
+  \LyxTextAccent[-.31ex]{\LyxAccentSize,}{#1}}
+
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{equation}{section}
+\newenvironment{lyxcode}
+	{\par\begin{list}{}{
+		\setlength{\rightmargin}{\leftmargin}
+		\setlength{\listparindent}{0pt}% needed for AMS classes
+		\raggedright
+		\setlength{\itemsep}{0pt}
+		\setlength{\parsep}{0pt}
+		\normalfont\ttfamily}%
+	 \item[]}
+	{\end{list}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{hyperref}
+\usepackage[linesnumbered,ruled,vlined,algochapter]{algorithm2e}
+\usepackage{babel}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}{}}
+\fancyhead[LE,LO]{\scriptsize Universitatea Politehnica Timi\textcommabelow{s}oara 
+\\ Calculatoare \textcommabelow{s}i Tehnologia Informa\textcommabelow{t}iei, 2025 
+\\ Prenume1-Prenume2 NUME
+\\ Titlu}
+\fancyhead[RE,RO]{\includegraphics[scale=0.25]{logo_UPT.jpg}}
+
+\renewcommand{\rmdefault}{phv}
+\AtBeginDocument{%
+  \renewcommand\tablename{Tabelul}
+}
+
+\usepackage{indentfirst}
+
+\AtBeginDocument{
+  \def\labelitemii{\(\blacklozenge\)}
+  \def\labelitemiii{\ding{227}}
+  \def\labelitemiv{\ding{70}}
+}
+
+\makeatother
+
+\begin{document}
+\begin{lyxcode}
+\begin{doublespace}
+\begin{center}
+\begin{figure}
+\noindent %
+\begin{minipage}[b][1\totalheight][c]{0.65\columnwidth}%
+\textbf{\large{}Calculatoare \textcommabelow{s}i Tehnologia Informa\textcommabelow{t}iei}{\large\par}
+
+\textbf{\large{}2026}{\large\par}
+
+$\ $%
+\end{minipage}%
+\begin{minipage}[b][1\totalheight][c]{0.15\columnwidth}%
+\begin{flushright}
+\includegraphics[scale=0.4]{logo_UPT}
+\par\end{flushright}%
+\end{minipage}
+\end{figure}
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+\textrm{\textbf{\huge{}TITLU}}\linebreak{}
+\textrm{\textbf{\huge{}TOT~TITLU}}\textrm{\textbf{\Huge{}~}}\\
+\textrm{\textbf{\Huge{}}}\\
+\textrm{\textbf{\Huge{}}}\\
+\textrm{\textbf{\Huge{}}}\\
+\textrm{\textbf{\Huge{}}}\\
+\textrm{\textbf{\Huge{}}}\\
+\par\end{center}
+\end{doublespace}
+
+\end{lyxcode}
+\noindent \textbf{\large{}Candidat: Prenume1-Prenume2 NUME}\\
+
+\noindent \textbf{\large{}Coordonator \textcommabelow{s}tiin\textcommabelow{t}ific:
+Prof. dr. habil. ing. Călin-Adrian POPA}\\
+\\
+\\
+\\
+\\
+\\
+
+\begin{center}
+Sesiunea: Iulie 2026
+\par\end{center}
+
+\thispagestyle{empty}\setcounter{page}{1}
+
+\tableofcontents{}
+
+\chapter{Introducere\label{chap:Introducere}}
+
+\section{Context\label{sec:Context}}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+
+\section{Solu\textcommabelow{t}ia propusă\label{sec:Solu=000163ia-propus=000103}}
+
+Folosi\textcommabelow{t}i Spellcheck continuously, butonul \includegraphics{pasted1}!
+
+Listă numerotată:
+\begin{enumerate}
+\item Item 1
+\item Item 2
+\item Item 3.
+\end{enumerate}
+
+Listă cu bullets:
+\begin{itemize}
+\item Item 1
+\item Item 2
+\item Item 3.
+\end{itemize}
+
+Folosi\textcommabelow{t}i diacritice: ăĂîÎ\textcommabelow{S}\textcommabelow{s}\textcommabelow{T}\textcommabelow{t}Ââ
+
+Ecua\textcommabelow{t}ie inline: $E=mc^{2}.$
+
+Nu scrie\textcommabelow{t}i $3x3$, scrie\textcommabelow{t}i $3\times3$.
+
+Ecua\textcommabelow{t}ie displaystyle numerotată:
+\begin{equation}
+E=mc^{2}.\label{eq:ec-1}
+\end{equation}
+
+Ecua\textcommabelow{t}ie displaystyle nenumerotată:
+\[
+E=mc^{2}.
+\]
+
+După cum arată ecua\textcommabelow{t}ia \eqref{eq:ec-1} (a\textcommabelow{s}a
+se citează o ecua\textcommabelow{t}ie).
+
+După cum se vede în Figura \ref{fig:fig-1} (a\textcommabelow{s}a
+se citează o figură). Toate figurile trebuie citate în text! La figură,
+apare prima dată caption-ul, apoi neapărat punct, \textcommabelow{s}i
+apoi, dacă e cazul, referin\textcommabelow{t}a de unde a fost preluată
+\textcommabelow{s}i label-ul. Vă rog insistent să \textcommabelow{t}ine\textcommabelow{t}i
+cont de această formatare!
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.5]{logo_UPT}
+\par\end{centering}
+\caption{Logo UPT. \citep{key-1}\label{fig:fig-1}}
+\end{figure}
+
+După cum am arătat în Capitolul \ref{chap:Introducere} (a\textcommabelow{s}a
+se citează un capitol).
+
+După cum am arătat în Sec\textcommabelow{t}iunea \ref{sec:Solu=000163ia-propus=000103}
+(a\textcommabelow{s}a se citează o sec\textcommabelow{t}iune).
+
+În Tabelul \ref{tab:tab-1} ave\textcommabelow{t}i un dic\textcommabelow{t}ionar
+de termeni tehnici englez--român (a\textcommabelow{s}a se citează
+un tabel). Toate tabelele trebuie citate în text! La tabel e la fel
+ca la figură, doar că fără referin\textcommabelow{t}ă.
+
+\begin{table}[h]
+\begin{centering}
+\begin{tabular}{cc}
+\hline 
+\textbf{Engleză} & \textbf{Română}\tabularnewline
+\hline 
+bounding box & casetă de încadrare\tabularnewline
+generative adversarial & generativ adversativ\tabularnewline
+batch & lot\tabularnewline
+padding & bordare\tabularnewline
+sample & mostră\tabularnewline
+encoder-decoder & codificator-decodificator\tabularnewline
+loss function & func\textcommabelow{t}ie de cost\tabularnewline
+reinforcement learning & învă\textcommabelow{t}are prin consolidare\tabularnewline
+fully connected & complet conectat\tabularnewline
+upsampling & scalare în sus\tabularnewline
+pooling & e\textcommabelow{s}antionare\tabularnewline
+feature map & hartă de caracteristici\tabularnewline
+kernel & kernel\tabularnewline
+dropout & dropout\tabularnewline
+activation function & func\textcommabelow{t}ie de activare\tabularnewline
+deep learning & învă\textcommabelow{t}are profundă\tabularnewline
+machine learning & învă\textcommabelow{t}are automată\tabularnewline
+computer vision & vedere artificială\tabularnewline
+stride & pas\tabularnewline
+learning rate & rată de învă\textcommabelow{t}are\tabularnewline
+dataset & set de date\tabularnewline
+labels & etichete\tabularnewline
+features & caracteristici\tabularnewline
+skip connections & conexiuni de ocolire\tabularnewline
+point cloud & ansamblu de puncte\tabularnewline
+overfitting & supraspecializare\tabularnewline
+ground truth & adevăr de bază\tabularnewline
+backpropagation & propagare înapoi\tabularnewline
+heatmap & hartă termografică\tabularnewline
+vanishing gradients & dispari\textcommabelow{t}ia gradien\textcommabelow{t}ilor\tabularnewline
+sliding window & fereastră glisantă\tabularnewline
+depthwise separable & separabilă pe adâncime\tabularnewline
+recall & recunoa\textcommabelow{s}tere\tabularnewline
+embeddings & încorporări\tabularnewline
+encoder-decoder & codificator-decodificator\tabularnewline
+backbone & re\textcommabelow{t}ea de bază\tabularnewline
+feedforward & propagare înainte\tabularnewline
+framework & platformă de dezvoltare\tabularnewline
+end-to-end & de la cap la coadă\tabularnewline
+\hline 
+\end{tabular}
+\par\end{centering}
+\caption{Dic\textcommabelow{t}ionar. \label{tab:tab-1}}
+\end{table}
+
+
+\chapter{Concluzii\label{chap:Concluzii}}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+\begin{thebibliography}{99}
+\bibitem[1]{key-1}K. He, X. Zhang, S. Ren, J. Sun. Deep Residual
+Learning for Image Recognition. \emph{CVPR}, 2016. (a\textcommabelow{s}a
+se citează o conferin\textcommabelow{t}ă)
+
+\bibitem{key-2}C.M. Bishop. \emph{Neural Networks for Pattern Recognition}.
+Oxford University Press, 1995. (a\textcommabelow{s}a se citează o
+carte)
+
+\bibitem{key-3}Y. Bengio, P. Simard, P. Frasconi. Learning long-term
+dependencies with gradient descent is difficult. \emph{IEEE Transactions
+on Neural Networks}, 5(2):157--166, 1994. (a\textcommabelow{s}a se
+citează un jurnal)
+\end{thebibliography}
+\includepdf{\string"Anexa 3_Declaratie_de_autenticitate_UPT_2023_IA\string"}
+\end{document}

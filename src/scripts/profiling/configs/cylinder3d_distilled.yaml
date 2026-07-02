@@ -1,0 +1,21 @@
+# Cylinder3D Distilled Student - NUC-Net, SemanticKITTI
+# FLOPs profiling config
+#
+# Width-halved student (init_size=16) distilled from the
+# full teacher (init_size=32).  Same grid, same NUMA 2-scale,
+# only channel widths reduced.
+
+arch: cylinder3d
+
+model:
+  init_size: 16
+  num_input_features: 16
+  num_scales: 2          # NUMA multi-scale aggregation (same as teacher)
+  num_class: 20
+  fea_dim: 9
+  out_fea_dim: 256       # MLP kept full-width (cheap vs 3D convs)
+  output_shape: [120, 360, 32]
+
+profiling:
+  num_points: 120000     # same input as single-scan teacher
+  num_voxels: 40000

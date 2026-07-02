@@ -1,0 +1,23 @@
+{
+  "backbone_num_params_M": 14.081916,
+  "backbone_flops_G": 0.028144512,
+  "PQ": 0.5581822597036041,
+  "PQ_dagger": 0.6032958659598346,
+  "PQ_things": 0.5402600451214069,
+  "PQ_stuff": 0.5712165975815654,
+  "RQ": 0.6647294147974904,
+  "RQ_things": 0.6202704307519504,
+  "RQ_stuff": 0.6970632213760648,
+  "SQ": 0.7355613004674667,
+  "SQ_things": 0.7493999586055278,
+  "SQ_stuff": 0.7254968218216041,
+  "mAP": 0.40852037734427615,
+  "mIoU": 0.6120691114838344,
+  "backbone_inference_speed_ms": 65.06713842957024,
+  "backbone_fps": 15.368741028659448,
+  "backbone_vram_peak_mb": 1291.1650390625,
+  "alpine_inference_speed_ms": 36.04599454890535,
+  "alpine_fps": 27.742333441327343,
+  "total_pipeline_speed_ms": 101.11313297847559,
+  "total_pipeline_fps": 9.889912126576817
+}

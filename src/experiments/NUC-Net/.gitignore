@@ -1,0 +1,4 @@
+**/__pycache__/**
+Cylinder3d_with_NUC/wandb/
+**/*.pt
+**/*.pth

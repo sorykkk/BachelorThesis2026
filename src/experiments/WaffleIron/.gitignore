@@ -1,0 +1,18 @@
+# Compiled python modules.
+*.pyc
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
+/*.egg
+
+# Checkpoints
+logs/
+pretrained_models/
+
+# Data
+*.npy
+*.npz
+*.txt
+**/wandb/**
+**/*.pt 
+**/*.pth

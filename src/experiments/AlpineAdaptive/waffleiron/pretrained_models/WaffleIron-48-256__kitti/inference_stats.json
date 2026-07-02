@@ -1,0 +1,9 @@
+{
+  "batch_size": 4,
+  "inference_speed_ms_per_batch": 703.4839564183912,
+  "inference_speed_ms": 175.8709891045978,
+  "fps": 5.685986103172811,
+  "vram_peak_mb": 4776.85498046875,
+  "mIoU": 68.02423559444124,
+  "total_batches": 1018
+}

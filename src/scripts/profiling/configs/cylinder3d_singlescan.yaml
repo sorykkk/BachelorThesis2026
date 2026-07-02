@@ -1,0 +1,17 @@
+# Cylinder3D Single-Scan - NUC-Net, SemanticKITTI
+# FLOPs profiling config
+
+arch: cylinder3d
+
+model:
+  init_size: 32
+  num_input_features: 32
+  num_scales: 2          # NUMA multi-scale aggregation
+  num_class: 20
+  fea_dim: 9
+  out_fea_dim: 256
+  output_shape: [120, 360, 32]
+
+profiling:
+  num_points: 120000     # typical single scan (~120k LiDAR points)
+  num_voxels: 40000      # typical active voxels at finest level

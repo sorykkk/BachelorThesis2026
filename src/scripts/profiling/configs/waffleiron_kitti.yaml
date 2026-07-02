@@ -1,0 +1,18 @@
+# WaffleIron-48-256 - SemanticKITTI
+# FLOPs profiling config
+
+arch: waffleiron
+
+model:
+  input_channels: 5      # intensity + xyz + radius
+  feat_channels: 256
+  depth: 48
+  nb_class: 19
+  grids_size:
+    - [250, 250]
+    - [250,  12]
+    - [250,  12]
+  neighbors: 16
+
+profiling:
+  num_points: 20000      # downsampled point count per batch

@@ -1,0 +1,6 @@
+{
+  "num_params_M": 6.840615,
+  "trainable_params_M": 6.840615,
+  "flops_G": 13.68123,
+  "flops_method": "param_estimate"
+}
